@@ -39,13 +39,12 @@ module.exports = {
       center[0] = (opt.start[0] + opt.end[0]) / 2
       center[1] = (opt.start[1] + opt.end[1]) / 2
       center[2] = (opt.start[2] + opt.end[2]) / 2
-      opt.height = Math.hypot(opt.start[0] - opt.end[0], opt.start[1] - opt.end[1], opt.start[2] - opt.end[2])
-      if (opt.start[0] != opt.end[0]) {
-        rot[1] = -Math.PI / 2 * Math.sign(opt.start[0] - opt.end[0])
-      }
-      if (opt.start[1] != opt.end[1]) {
-        rot[0] = Math.PI / 2 * Math.sign(opt.start[1] - opt.end[1])
-      }
+      const dx = opt.end[0] - opt.start[0]
+      const dy = opt.end[1] - opt.start[1]
+      const dz = opt.end[2] - opt.start[2]
+      opt.height = Math.hypot(dx, dy, dz)
+      rot[0] = Math.asin(-dy / opt.height)
+      rot[1] = Math.atan2(dx / opt.height, dz / opt.height)
     }
     if (opt.fn) {
       opt.segments = opt.fn
