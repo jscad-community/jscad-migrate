@@ -14,6 +14,9 @@ module.exports = {
     }
   },
   cube: (opt) => {
+    if (typeof opt === "number") {
+      opt = { size: opt }
+    }
     if (Number.isFinite(opt.size)) {
       opt.size = [opt.size, opt.size, opt.size]
     }
